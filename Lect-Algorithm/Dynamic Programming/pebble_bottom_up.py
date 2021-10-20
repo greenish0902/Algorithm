@@ -10,18 +10,17 @@ w = [
   [3, 5, 4, 7]
   ]
 
-# pebble algorithm
-def pebble(i, p):  # p, q = 0, 1, 2, 3
-  if (i == 0):
-    return w[0][p]
-  else:
-    max = -100  # 아주 작은 초기값
-    for q in range(0, 4):  # q = 0, 1, 2, 3
-      if coexist(q, p):  # p 다음에 q가 올 수 있다면
-        temp = pebble(i-1, q)
-        if (temp > max):
-          max = temp
-    return w[i][p] + max
+# fill garbage values
+peb = [
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+  [-1000, -1000, -1000, -1000],
+]
 
 def coexist(q, p):  ## p, q = 0, 1, 2, 3
   if (p == 0):
@@ -46,18 +45,29 @@ def coexist(q, p):  ## p, q = 0, 1, 2, 3
       return False
 
 def pebble_sum(n):
-  max = -100  # 충분히 작은 값
-  for i in range(4):
-    if (pebble(n, i) > max):
-      max = pebble(n, i)
+  for p in range(4):
+    peb[0][p] = w[0][p]
+  for i in range(1, n+1):
+    for p in range(4):
+      max = -100
+      for q in range(4):
+        if coexist(q, p):
+          temp = peb[i-1][q]
+          if (temp > max):
+            max = temp
+      peb[i][p] = w[i][p] + max
+  max = -100
+  for p in range(4):
+    if (peb[n][p] > max):
+      max = peb[n][p]
   return max
 
 # test code
 def test_sort():
   assert(pebble_sum(1) == 18)
   assert(pebble_sum(7) == 95)
-  print("final sum: ", pebble_sum((len(w)-1)))
-  print("테스트 통과!")
+  print("\nfinal sum: ", pebble_sum((len(w)-1)))
+  print("테스트 통과!\n")
 
 if __name__ == "__main__":
   test_sort()
