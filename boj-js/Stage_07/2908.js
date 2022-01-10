@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { parse } = require("path");
 const filePath = process.platform === "linux" ? "dev/stdin" : "input.txt";
 const stdin = fs.readFileSync(filePath).toString().split("\n");
 
