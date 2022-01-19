@@ -8,11 +8,7 @@ const input = () => {
 };
 
 const solution = () => {
-  let sum = BigInt(0);
-  input().split(" ").map(x => {
-    sum += BigInt(x)
-  });
-  console.log(sum.toString());
+  return input().split(" ").reduce((sum, x) => sum + BigInt(x), BigInt(0));
 };
 
-solution();
+console.log(solution().toString());
