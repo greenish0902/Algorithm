@@ -8,11 +8,8 @@ const solution = () => {
   const N = input();
   let numbers = { ...new Array(10).fill(0) };
   N.split("").forEach((num) => numbers[num]++);
-  const cnt = Math.max(
-    ...Object.values({ ...numbers, 6: 0, 9: 0 }),
-    Math.min(Math.ceil((numbers[6] + numbers[9]) / 2))
-  );
-  return cnt;
+  const ceil = Math.ceil((numbers[6] + numbers[9]) / 2);
+  return Math.max(...Object.values({ ...numbers, 6: ceil, 9: ceil }));
 };
 
 let _line = 0;
